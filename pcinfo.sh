@@ -17,10 +17,3 @@ echo "Your hostname is: `hostname`"
 echo "Your CPU model is:$CPU"
 echo -e "Your used memory is: \e[4m$memused MB\e[24m, this is \e[4m$mempct%\e[24m of your total memory: \e[4m$memtotal MB\e[24m"
 echo -n "Your IP address is: $IP"; echo " Your Default Gateway is: $DG"
-
-
-
-
-
-
-
