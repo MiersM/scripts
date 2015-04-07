@@ -10,8 +10,8 @@ MEMTOTAL=`cat /proc/meminfo | grep "MemTotal" | awk -F: '{print $2/1024}'| awk '
 # | awk '{print int($1+0.5)}' is used to round numbers. (See source)
 MEMPCT=`free | grep "Mem" | awk '{print (($3/$2)*100)}'| awk '{print int($1+0.5)}'`
 
-#IP=`hostname -I` #source: yannick
-#DG=`route | grep "default" | awk '{print $2}'`
+IP=`hostname -I` #source: yannick
+DG=`route | grep "default" | awk '{print $2}'`
 
 herhaalFct()
 {
@@ -41,22 +41,3 @@ while true;
 	echo "================"
 	echo ""
    done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
