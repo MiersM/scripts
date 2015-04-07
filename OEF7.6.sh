@@ -2,8 +2,9 @@ MAX=$1 #parameter
 i=0
 while [[ $i < $MAX ]];
 do 
-	echo Goede morgen
-	let i++
+	echo $1	
+	let i++;
+	sleep 1
 	#let i="$i + 1"
 	#i=$(($i + 1))
 done
@@ -14,8 +15,8 @@ done
 
 #2
 #!/bin/bash
-for (( i=1 ; i <=50 ; i++ ))
-do
-   echo $i
-done
+#for (( i=1 ; i <=50 ; i++ ))
+#do
+#   echo $i
+#done
 #3
