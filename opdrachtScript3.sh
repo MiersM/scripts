@@ -52,8 +52,8 @@ if [ -z "$1" ]
 
 		-[0-9]* ) for (( i=0; i<=${1:1}; i++ ))
 	                  do 
-				shift;
-                    		echo "$1 zegt je dat: "
+				#shift;
+                    		echo "$2 says: "
                     	   herhaalFct;
 			  done
                 	;;
