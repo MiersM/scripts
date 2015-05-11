@@ -41,7 +41,9 @@ if [ -z "$1" ]
       echo "You did not enter a parameter"
 
    else
-
+	
+#while :;
+#do
       until [ -z "$1" ]
 	 do
 	    case $1 in
@@ -50,7 +52,7 @@ if [ -z "$1" ]
 			   herhaalFct;	 
 			;;	
 
-		-[0-9]* ) for (( i=0; i<=${1:1}; i++ ))
+		-[0-9]* ) for (( i=1; i<=${1:1}; i++ ))
 	                  do 
 				#shift;
                     		echo "$2 says: "
@@ -66,7 +68,7 @@ if [ -z "$1" ]
 	    esac
 	   shift
 	 done
-
+#done
 fi
 #done
 #Druk CTRL + C om te stoppen
