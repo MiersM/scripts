@@ -32,8 +32,8 @@ echo "-<Y> zorgt er voor dat de naam die hierna volgt, Y keer in de lijst wordt 
 }
 
 
-while true; 
-do 
+#while true; 
+#do 
 
 if [ -z "$1" ]
    then
@@ -46,11 +46,17 @@ if [ -z "$1" ]
 	 do
 	    case $1 in
 
-		-c	)  shift; echo -n "welkom, " ; echo ${1^^}; 
+		-c	)  shift; echo -n "welkom, " ; echo ${1^^};
+			   herhaalFct;	 
 			;;	
 
-		[0-9]*  )  echo "I will not say welcome to the number: $1"
-			;;
+		-[0-9]* ) for (( i=0; i<=${1:1}; i++ ))
+	                  do 
+				shift;
+                    		echo "$1 zegt je dat: "
+                    	   herhaalFct;
+			  done
+                	;;
 
 		-h	) helpFct
 			;;
@@ -62,8 +68,5 @@ if [ -z "$1" ]
 	 done
 
 fi
-#sleep 0.5
-#herhaalFct;
-break
-done
+#done
 #Druk CTRL + C om te stoppen
