@@ -1,4 +1,3 @@
-###
 #!/bin/bash
 #Script Opdracht 3
 #Maarten Miers
@@ -47,17 +46,19 @@ voegToeAanLijstX()
 	 do
 	    case $1 in
 
-		-c	)  shift; voegToeAanLijst ${1^^};;
+		-c	) shift; voegToeAanLijst ${1^^}
+			  ;;
 
-		-[0-9]* ) voegToeAanLijstX $1 $2; shift;;
+		-[0-9]* ) voegToeAanLijstX $1 $2; shift
+			  ;;
 
 		-h	) helpFct
 			  exit
-			;;
+			  ;;
 
 	       	 *	) echo "Bad argument!, use the HELPfunction: -h"
 			  exit
-			;; 
+			  ;; 
 	    esac
 	   shift
 	 done
