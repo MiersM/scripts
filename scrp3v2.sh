@@ -15,56 +15,40 @@ DG=`route | grep "default" | awk '{print $2}'`
 
 herhaalFct()
 {
-   echo "$1 says: "
+   echo "$1 says:"
+   echo ""
    echo "Your hostname is: $(hostname)"
    echo "Your CPU model is:$CPU"
    echo -e "Your used memory is: \e[4m$MEMUSED MB\e[24m, this is \e[4m$MEMPCT%\e[24m of your total memory: \e[4m$MEMTOTAL MB\e[24m"
-   echo -n "Your IP address is: $IP"; echo " Your Default Gateway is: $DG" 
+   echo -n "Your IP address is: $IP"; echo " Your Default Gateway is: $DG"
    echo ""
-   echo "CTRL + C to quit" 
-   echo "________________"
    sleep 0.7
 }   
 
-helpFct(){
+helpFct()
+{
 echo "-c zorgt er voor dat de naam die volgt, sowieso in hoofdletters wordt geplaatst"
 echo "-<Y> zorgt er voor dat de naam die hierna volgt, Y keer in de lijst wordt toegevoegd (bvb "-4 Leen" zorgt er voor dat Leen 4 keer in de lijst komt). Y kan gaan van 1 tot 9..."
 }
-voegToeAanLijstX(){
-	for (( i=1; $i <= ${1:1}; i++ ))
-                          do 
-                               voegToeAanLijst $2
-                          done
 
-}
-voegToeAanLijst() {
+voegToeAanLijst()
+{
 	LIJST="$LIJST $1"
 }
 
-
-#while true; 
-#do 
-
-#if [ -z "$1" ]
-#   then
-
-#      echo "You did not enter a parameter"
-
-#   else
-
-#plaats de parameters in een lijst
-#until [ -z "$1" ]
-#do
-#	LIJST="$LIJST $1"
-#	shift
-#done
-
+voegToeAanLijstX()
+{
+	for (( i=1; $i <= ${1:1}; i++ ))
+		do 
+                	voegToeAanLijst $2
+                done
+}
 	
       until [ -z "$1" ]
 	 do
 	    case $1 in
 
-		-c	)  shift; voegToeAanLijst $1;;#shift; echo -n "welkom, " ; echo ${$1^^};
+		-c	)  shift; voegToeAanLijst ${1^^};;#shift; echo -n "welkom, " ; echo ${$1^^};
 			#   herhaalFct;	 
 			#;;	
 
@@ -84,14 +68,15 @@ voegToeAanLijst() {
 	    esac
 	   shift
 	 done
-#done
-#fi
 
-#done
-#Druk CTRL + C om te stoppen
 while :;
 do
-	for NAAM in $LIJST ; do
-	herhaalFct $NAAM
+	for NAAM in $LIJST ; 
+	do
+		herhaalFct $NAAM
+	done
+	
+  	 echo ""
+ 	 echo "CTRL + C to quit" 
+   	 echo "________________"
 done
-
