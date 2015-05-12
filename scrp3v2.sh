@@ -7,10 +7,9 @@ CPU=`cat /proc/cpuinfo | grep "model name" | awk -F: '{print $2}'`
 
 MEMUSED=`free -m | grep "Mem" | awk '{print $3}'`
 MEMTOTAL=`cat /proc/meminfo | grep "MemTotal" | awk -F: '{print $2/1024}'| awk '{print int($1+0.5)}'`
-# | awk '{print int($1+0.5)}' is used to round numbers. (See source)
 MEMPCT=`free | grep "Mem" | awk '{print (($3/$2)*100)}'| awk '{print int($1+0.5)}'`
 
-IP=`hostname -I` #source: yannick
+IP=`hostname -I`
 DG=`route | grep "default" | awk '{print $2}'`
 
 herhaalFct()
@@ -48,22 +47,16 @@ voegToeAanLijstX()
 	 do
 	    case $1 in
 
-		-c	)  shift; voegToeAanLijst ${1^^};;#shift; echo -n "welkom, " ; echo ${$1^^};
-			#   herhaalFct;	 
-			#;;	
+		-c	)  shift; voegToeAanLijst ${1^^};;
 
-		-[0-9]* ) voegToeAanLijstX $1 $2; shift;;#for (( i=1; i<=${1:1}; i++ ))
-	                  #do 
-			#	#shift;
-                    	#	echo "$2 says: "
-                    	 #  herhaalFct;
-			  #done
-                	#;;
+		-[0-9]* ) voegToeAanLijstX $1 $2; shift;;
 
 		-h	) helpFct
+			  exit
 			;;
 
-	       	 *	)  echo "Bad argument!, use the HELPfunction: -h"
+	       	 *	) echo "Bad argument!, use the HELPfunction: -h"
+			  exit
 			;; 
 	    esac
 	   shift
@@ -79,4 +72,5 @@ do
   	 echo ""
  	 echo "CTRL + C to quit" 
    	 echo "________________"
+	 echo ""
 done
