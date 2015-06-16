@@ -5,9 +5,22 @@ alias vi=vim
 
 alias gitreset='git fetch origin && git reset --hard origin/master'
 
-#if user is not root, pass all commands via sudo
+alias nocomment='grep -Ev '\''^(#|$)'\'''
+
+
+#######################################################
+### if user is not root, pass all commands via sudo ###
+#######################################################
+
 
 if [ $UID -ne 0 ]; then
+
+
+alias reboot='sudo /sbin/reboot'
+alias halt='sudo /sbin/halt'
+alias shutdown='sudo /sbin/shutdown'
+
+alias ifcon='sudo ifconfig'
 
 alias nethogs='sudo nethogs'
 
