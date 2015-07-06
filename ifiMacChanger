@@ -1,0 +1,15 @@
+#!/bin/sh
+# Changes the hardware address of an interface.
+# Credit goes to "whiteandpastry" on reddit
+# https://www.reddit.com/r/linuxmasterrace/comments/3c90g7/the_airport_wifi_is_limited_to_90_minutes/
+
+if [ -z "$1" ]; then
+   ME=$(basename "$0")
+   >&2 echo usage: $ME interface 
+   exit 1
+fi
+
+sudo ip link set dev $1 down
+MAC=$(cat /sys/class/net/$1/address | cut -d':' -f1-3)$(hexdump -n3 -e '/1 ":%02X"' /dev/random)
+sudo ip link set dev $1 address $MAC
+sudo ip link set dev $1 up
