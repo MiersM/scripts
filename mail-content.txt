@@ -1,0 +1,25 @@
+Dear user,
+
+In the attachment below you can find the config file for your OpenVPN client.
+
+Install-guides:
+ANDROID:
+
+- Download the OpenVPN Connect app from the Google Play store.
+https://play.google.com/store/apps/details?id=net.openvpn.openvpn
+- Enter the menu and press import
+- Select the .ovpn file found in the attachment.
+- Press connect and you are good to go!
+
+WINDOWS:
+
+- Download the OpenVPN client from the official website.
+https://openvpn.net/index.php/open-source/downloads.html
+- Follow the installation proces and install the required adapters.
+- Place the .ovpn file in the OpenVPN config folder:
+C:\Program Files\OpenVPN\config\
+- Make sure to run the OpenVPN client as administrator and hit connect!
+If the the client is not run as ADMINISTRATOR, the VPN will not work properly.
+
+
+Contact me at smegvpn@openmailbox.org for more information.
