@@ -1,18 +1,17 @@
 #!/bin/bash
 # OPENMAILBOX
-#Send gmail through an account specified in ~/.sendGmailAuthFile (or file identified with -k.)
+# logincredentials go into the .sendOMailAuthFile file
 # The auth file must have values for the -f (from@domain) and -xp (password) options of sendEmail,
 # structured as:
 #
 #    user=me.surnamen@gmail.com
 #    pwd=xxxxxxx
 #
+# packages required: libio-socket-ssl-perl libnet-ssleay-perl sendEmail
 # We will fill in the rest, and other params are passed through to sendEmail
-#
-# Example: sendGmail -u "My subject line" -t "test@whatever.com" < message.txt
 
-function sendGmailImmed {
-        local authFile="/root/.sendOMailAuthFile"
+function sendMailFct {
+        local authFile="/root/.sendOMailAuthFile" # location of mail auth file
         for arg in "$@"; do
                 if [[ "$arg" == "-k" ]]; then
                         shift
@@ -25,5 +24,5 @@ function sendGmailImmed {
 }
 
 if [[ -z $sourceMe ]]; then
-        sendGmailImmed "$@"
+        sendMailFct "$@"
 fi
