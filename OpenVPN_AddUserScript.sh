@@ -40,7 +40,6 @@ echo "If no intial parameter is given, UNIX is used as a default."
 vpnRSA_dir=/etc/openvpn/easy-rsa/
 vpnRSA_dir_KEYS=/etc/openvpn/easy-rsa/keys/
 caCRT=/etc/openvpn/ca.crt
-mailScriptLoc=/etc/openvpn/easy-rsa/mailscript2.sh
 VPN_Name="smegVPN_"
 
 # OS_Flags
@@ -163,7 +162,7 @@ cat << EOF
 client
 dev tun
 proto udp
-remote 188.166.87.178 123
+remote serverIP portnr # insert server IP and portnumbers here
 resolv-retry infinite
 nobind
 persist-key
@@ -207,14 +206,14 @@ echo ""
 # Required packages: sendemail, libio-socket-ssl-perl, libnet-ssleay-perl
 # A mailscript is used here to simplify the input.
 
-mailFile=/etc/openvpn/easy-rsa/keys/clients/$VPN_Name$CLIENT_NAME.ovpn
+mailScriptLoc=/etc/openvpn/easy-rsa/mailscript2.sh
+mailFile=/etc/openvpn/clients/$VPN_Name$CLIENT_NAME.ovpn
 subj="VPN configuration file"
 mailText=`cat /etc/openvpn/easy-rsa/mail-content.txt`
 
-
 if [ $mailing = true ]
 then
-source $mailScriptLoc -t $clientMail -u "$subj" -m "$mailText" -a $mailFile
+/bin/bash $mailScriptLoc -t $clientMail -u "$subj" -m "$mailText" -a $mailFile
 fi
 
 exit 0 
