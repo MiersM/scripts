@@ -9,6 +9,20 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
+CLIENT_DIR="/etc/openvpn/clients"
+if [ ! -d "$CLIENT_DIR" ]
+then
+	echo -e "Creating backup directory: $CLIENT_DIR ...\n"
+        mkdir -p $CLIENT_DIR
+fi
+
+# Checks for client folder
+if [ ! -d "$CLIENT_DIR" ]
+then
+	echo -e "Creating backup directory: $CLIENT_DIR ...\n"
+        mkdir -p $CLIENT_DIR
+fi
+
 helpFct()
 {
 echo "This script is used to build users to a specific OpenVPN server."
@@ -18,6 +32,7 @@ echo "Usage:"
 echo "It is required to specify the client OS in the first parameter."
 echo "-w for Windows users!"
 echo "-u for NON-Windows users!"
+echo "-l is for linux clients!"
 echo "If no intial parameter is given, UNIX is used as a default."
 }
 
@@ -25,14 +40,13 @@ echo "If no intial parameter is given, UNIX is used as a default."
 vpnRSA_dir=/etc/openvpn/easy-rsa/
 vpnRSA_dir_KEYS=/etc/openvpn/easy-rsa/keys/
 caCRT=/etc/openvpn/ca.crt
-UNIXtemplate=/etc/openvpn/easy-rsa/keys/clients/UNIXYtemplate.ovpn
-WINtemplate=/etc/openvpn/easy-rsa/keys/clients/WINDOWStemplate.ovpn
 mailScriptLoc=/etc/openvpn/easy-rsa/mailscript2.sh
 VPN_Name="smegVPN_"
 
 # OS_Flags
 WINDOWS=false
 UNIX=true
+LINUX=false
 
 # Specifies if mail-flag is on or off
 mailing=false
@@ -57,6 +71,11 @@ else
  
 			-u | --unix 	)
 				UNIX=true
+				;;
+
+			-l | --linux	)
+				LINUX=true
+				UNIX=false
 				;;
 				
 			-m | --mail	)
@@ -101,26 +120,58 @@ echo "..."
 echo "Creating Client File"
 echo "..."
 
-touch /etc/openvpn/easy-rsa/keys/clients/$VPN_Name$CLIENT_NAME.ovpn
-clientFile=/etc/openvpn/easy-rsa/keys/clients/$VPN_Name$CLIENT_NAME.ovpn
+touch /etc/openvpn/clients/$VPN_Name$CLIENT_NAME.ovpn
+clientFile=/etc/openvpn/clients/$VPN_Name$CLIENT_NAME.ovpn
 
 # linux clients need /etc/openvpn/update-resolv-conf.sh to run! more on this:
 # https://wiki.archlinux.org/index.php/OpenVPN#DNS
 
-if [ $WINDOWS = true ]
+if [ $LINUX = true ]
 then
-	TEMPLATE=$WINtemplate
-fi
-if [ $UNIX = true ]
-then
-	TEMPLATE=$UNIXtemplate
+	addition=`cat << EOF
+user nobody
+group nogroup
+script-security 2
+up /etc/openvpn/update-resolv-conf
+down /etc/openvpn/update-resolv-conf
+EOF
+`
 fi
 
-cat $TEMPLATE >> $clientFile
+if [ $WINDOWS = true ]
+then
+	addition=`cat << EOF
+#windows client stuff
+EOF
+`
+fi
+
+if [ $UNIX = true ]
+then
+	addition=`cat << EOF
+user nobody
+group nogroup
+EOF
+`
+fi
 
 addKeys()
 {
 cat << EOF
+#OpenVPN client configuration file
+
+client
+dev tun
+proto udp
+remote 188.166.87.178 123
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+remote-cert-tls server
+comp-lzo
+verb 3
+
 <ca>
 `cat $caCRT`
 </ca>
@@ -132,6 +183,8 @@ cat << EOF
 <key>
 `cat $clientKEY`
 </key>
+
+$addition
 EOF
 }
 
@@ -139,8 +192,8 @@ addKeys >> $clientFile
 echo ""
 echo "Clientfile created!"
 echo ""
-echo "Zipping the file..."
-echo ""
+#echo "Zipping the file..."
+#echo ""
 
 # Zips the file
 #cd /etc/openvpn/easy-rsa/keys/clients/
