@@ -2,6 +2,8 @@
 
 # This script automates adding new users on an OpenVPN server
 # The client cert and key, along with the CA cert are all placed into one .ovpn client file
+# Example of usage:
+# ./OpenVPN_AddUserScript.sh -l LinuxUserName -m useremail@gmail.com
 
 # Checks if script is running as root
 if [ "$(id -u)" != "0" ]; then
