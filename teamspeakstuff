@@ -18,7 +18,5 @@ sudo service teamspeak3 start
 ufw allow 9987/udp
 yes | ufw enable
 ufw status
-echo -e "/n/n/nAdminStuff/n"
 cat /var/log/syslog | grep login
 cat /var/log/syslog | grep token
-exit 0
