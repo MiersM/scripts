@@ -19,3 +19,4 @@ ufw allow 9987/udp
 yes | ufw enable
 ufw status
 cat /var/log/syslog | grep login
+echo "Getting token from: /var/log/syslog"
