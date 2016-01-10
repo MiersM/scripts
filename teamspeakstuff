@@ -1,6 +1,6 @@
 #!/bin/bash
 # install on Ubuntu 15.10 using: 
-# wget https://raw.githubusercontent.com/smeggie/scripts/master/teamspeakstuff ; chmod 744 teamspeakstuff ; ./teamspeakstuff ; sleep 1 ; cat /var/log/syslog | grep token
+# wget https://raw.githubusercontent.com/smeggie/scripts/master/teamspeakstuff ; chmod 744 teamspeakstuff ; ./teamspeakstuff ; sleep 2 ; cat /var/log/syslog | grep token
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
    exit 1
