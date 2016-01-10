@@ -1,6 +1,6 @@
 #!/bin/bash
 # install using: 
-# wget https://raw.githubusercontent.com/smeggie/scripts/master/teamspeakstuff ; chmod 744 teamspeakstuff ; ./teamspeakstuff
+# wget https://raw.githubusercontent.com/smeggie/scripts/master/teamspeakstuff ; chmod 744 teamspeakstuff ; ./teamspeakstuff ;cat /var/log/syslog | grep token
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
    exit 1
@@ -19,6 +19,5 @@ ufw allow 9987/udp
 yes | ufw enable
 ufw status
 sleep 1
-cat /var/log/syslog | grep token
 cat /var/log/syslog | grep login
 
