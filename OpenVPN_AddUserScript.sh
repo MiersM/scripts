@@ -11,13 +11,6 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-CLIENT_DIR="/etc/openvpn/clients"
-if [ ! -d "$CLIENT_DIR" ]
-then
-	echo -e "Creating backup directory: $CLIENT_DIR ...\n"
-        mkdir -p $CLIENT_DIR
-fi
-
 # Checks for client folder
 if [ ! -d "$CLIENT_DIR" ]
 then
