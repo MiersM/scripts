@@ -22,3 +22,9 @@ yes | ufw enable
 ufw status
 cat /var/log/syslog | grep login
 echo "Getting token from: /var/log/syslog"
+
+# get new priv key
+# telnet 127.0.0.1 10011
+# login serveradmin adminpw
+# use 1
+# tokenadd tokentype=0 tokenid1=6 tokenid2=0
