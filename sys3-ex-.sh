@@ -1,6 +1,5 @@
 #!/bin/bash
-# Maarten Miers - Bengt Verscheure - TI2 groep2
-# System Engineering 3 --- Mondeling Examen (BACKUP  SCRIPT)
+
 
 # Default Configuration file
 CFG_FILE="/home/tijn/gitProjects/dirs.txt"
