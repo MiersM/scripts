@@ -7,9 +7,9 @@ if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
    exit 1
 fi
-wget http://dl.4players.de/ts/releases/3.0.11.4/teamspeak3-server_linux-amd64-3.0.11.4.tar.gz
+wget http://dl.4players.de/ts/releases/3.5.0/teamspeak3-server_linux_amd64-3.5.0.tar.bz2
 adduser --disabled-password --gecos "" teamspeak3
-tar xzf teamspeak3-server_linux-amd64-3.0.11.4.tar.gz
+tar xvjf teamspeak3-server_linux_amd64-3.5.0.tar.bz2
 mv teamspeak3-server_linux-amd64 /usr/local/teamspeak3
 chown -R teamspeak3 /usr/local/teamspeak3
 echo "#!/bin/sh" > /etc/init.d/teamspeak3
