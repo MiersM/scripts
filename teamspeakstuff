@@ -12,11 +12,12 @@ adduser --disabled-password --gecos "" teamspeak3
 tar xvjf teamspeak3-server_linux_amd64-3.5.0.tar.bz2
 mv teamspeak3-server_linux-amd64 /usr/local/teamspeak3
 chown -R teamspeak3 /usr/local/teamspeak3
-echo "#!/bin/sh" > /etc/init.d/teamspeak3
+echo '#!/bin/sh' > /etc/init.d/teamspeak3
 echo 'su -c "/usr/local/teamspeak3/ts3server_startscript.sh $@" teamspeak3' >> /etc/init.d/teamspeak3
-sudo chmod u+x /etc/init.d/teamspeak3
-sudo update-rc.d teamspeak3 defaults
-sudo service teamspeak3 start
+chmod u+x /etc/init.d/teamspeak3
+update-rc.d teamspeak3 defaults
+touch /usr/local/teamspeak3/.ts3server_license_accepted
+service teamspeak3 start
 ufw allow 9987/udp
 yes | ufw enable
 ufw status
@@ -28,3 +29,7 @@ echo "Getting token from: /var/log/syslog"
 # login serveradmin adminpw
 # use 1
 # tokenadd tokentype=0 tokenid1=6 tokenid2=0
+# service teamspeak3 stop
+# rm /etc/init.d/teamspeak3
+# /usr/local remove shit
+# Userdel –r teamspeak3
